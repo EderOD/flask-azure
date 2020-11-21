@@ -22,9 +22,6 @@ jupyter_core==4.6.3
 librosa==0.8.0
 llvmlite==0.34.0
 markupsafe==1.1.1
-mkl
-mkl_fft
-mkl_random
 numba==0.51.2
 numpy==1.19.2
 packaging
