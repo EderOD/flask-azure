@@ -1,8 +1,4 @@
 import flask
-import os
-import numpy as np
-import librosa
-from joblib import load
 app = flask.Flask(__name__)
 
 @app.route('/')
