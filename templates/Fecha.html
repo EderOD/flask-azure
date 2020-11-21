@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+* {box-sizing: border-box;}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #e9e9e9;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #2196F3;
+  color: white;
+}
+
+.topnav .search-container {
+  float: right ;
+}
+
+.topnav input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+  width: 700px;
+}
+
+.topnav .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  width: 100px;
+}
+
+.topnav .search-container button:hover {
+  background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav .search-container {
+    float: none;
+  }
+  .topnav a, .topnav input[type=text], .topnav .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav input[type=text] {
+    border: 1px solid #ccc;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="active" href="http://localhost:5000/">Home</a>
+  <div class="search-container">
+     <form action = "http://localhost:5000/" method = "post">
+      <input type="text" placeholder="Search" name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+</div>
+
+<div style="padding-left:16px">
+  <h2> Voice Activated Smart Lock </h2>
+</div>
+<!-- Draw the action buttons -->
+    <button id="start-btn">Start recording</button>
+    <button id="stop-btn" disabled>Stop recording</button>
+
+    <!-- List item to store the recording files so they can be played in the browser -->
+    <img src="data:image/png;base64,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0Ekaa0ESG/2rQgoJQSeF2gVYTAg6WaxdgE2EoJNN2gUoIwSdlGkXgE0htBLRLsBRQtDJUe0CnCQEnZzULkA9IeikXrsArYSgk1btApCBXhAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAARAAAVwWoOmtF58pnDi0V6+hEwufefGtJgRIJAFOr7m3+/VtdL93zWkESAwBzj+fFeqok1DW8+cRwHkBLr/ar/Nmblt/BQHcFmD38K7buWMPAjgswKm7b9xQ3mcI4KoAkfRoOvrpQQRwU4D1UX5ptfvrCOCgAJefir6possI4JoAl++Ppav7LyOAYwI8FVtbTyGAWwKsj7Wv9QjgkgCRcKx9hSMI4I4Ap9Jjbyz9FAI4I8Dd8XQ2AQFcEWB3fK2VIYAbAlweHl9rI64ggBMCvBpvb68jgAsCnO8Xb2/9WxDAAQGej7+5lQjggAC/ir+5uxDAfgFOSzTX7QsEsF6A1TLdvYIA1guQL9NdAQLYLsC5sEx33ZsQwHIBdsm1twsBLBdghVx7KxDAcgGelmvvaQSwXIBpcu1NQwDLBZgg194EBLBcgCFy7Q1BAMsFSJVrLxUBLBfgZrn2bkYAywW4Ta692xDAcgFGyrU3EgG4CkAAmwWYLtfedASwXICX5Np7CQEsF+CQXHuHEMByAVqkHgeHWxDA9gUh42S6GycQIKGXhK1GAOsFaJQ4BoQbEcB6AcSU+JubIhDAfgHK42+uHAEcECC+l8O/5m6BAC4IcCDe3g4ggBMCiIL4WisQCOCGALVp8XSWVosAjggg3oynszcFArgigHg49sYeFgjgjgBnR8Xa16izCOCQAKJuYGxtDawTCOCSAOLDmLYKTP9QIIBbAogTQ6NvaugJgQCuCSCaHoy2pwct+ogcAsTAy1E9GAy/bFNPCBAL72feuKHM9wUCuCqAaLzvRv3c1ygQwF0BRPuN+mkXCOCyACLR+kEABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABEAABNBFatftpCKA4wIM7rqdwQjguADju25nPAI4LsCsrtuZhQCOC7Cn63b2IIDjArT06qqbXi0I4LgAYnZX3cwWCOC6AHU9O2+mZx0COC+AmN95M/MFArgvwMWxnfUy9iICJIAA4kxGx61knBEIkAgCiOoODcioFgiQGAKIMx0cBcaeEQiQKAKIi/N/cC3Qc/5FgQCJI8DVq8HZ19wR6jW7ztY+ECD+e4J7Zo0fnJo6ePysPS32dqFdgFYBGmnVLkA9IeikXrsAJwlBJye1C3CUEHRyVLsAEULQSUS7AGWEoJMy7QJsIgSdbNIuwGJC0Mli7QIUEoJOCrULkEUIOsnSLkAaIegkTbsAXh0p6KNOf/5eBTHoo8IAAUqJQR+lBgiQTwz6yDdAgJQ2ctBFW4oBAnhVBKGLKhPy95YQhC6WGCHAJILQxSQjBAg3koQeGsNGCOCtIgo9rDYjfy+bKPSQbYgAXg1Z6KDGlPy9YsLQQbExAmS2k0bwtGcaI4C3gziCZ4c5+bMqRAdZBgng7SWPoNlrUv5eLoEETa5RAniVJBIslWbl7+URSbDkGSaAt41MgmSbafl7GU2kEhxNGcYJ4BURS3AUmZe/l3ycXILieLKBAng53BAO6iZwjmckJUQTDCVm5u8lsVlEIESSDBXAy2ggHf9pyPCMpYDTAP9PAAo8g1lOQH6z3OT8vdBmEvKXzSGjBfDC5WTkJ+Vhz3BSD5OSfxxO9YwnnTXCvlGT7llAfwzwK//+nhWkcxTw5/8/3bOEVM4E/Tj/S/WsIczVoPrrv7BnEaHl3BNUe/9veciziwKeCyikocCzjgyeDSojkuFZSFIJhwE1f/8lSZ6d5LBKTAHHczxrSS5irbAkTUXJns1k8L6AFNsyPNvJ462xuKnM81wgl3eH42JvrucKWTu4IIj11H9HlucSmcU8I4yBmuJMzzmyV7GjZFQ0rsr23CQ8aWkVe4t3SVvV0klhz2VS8ksr+MpMh9RVlOaneAlBWlbh4k1lkaMn6xP+6/Ot9SePRso2LS7M0vP9p/8CLcA1FSEnO9AAAAAASUVORK5CYII=">
+
+    <script>
+        // Expose globally your audio_context, the recorder instance and audio_stream
+        var audio_context;
+        var recorder;
+        var audio_stream;
+
+        /**
+         * Patch the APIs for every browser that supports them and check
+         * if getUserMedia is supported on the browser. 
+         * 
+         */
+        function Initialize() {
+            try {
+                // Monkeypatch for AudioContext, getUserMedia and URL
+                window.AudioContext = window.AudioContext || window.webkitAudioContext;
+                navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+                window.URL = window.URL || window.webkitURL;
+
+                // Store the instance of AudioContext globally
+                audio_context = new AudioContext;
+                console.log('Audio context is ready !');
+                console.log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
+            } catch (e) {
+                alert('No web audio support in this browser!');
+            }
+        }
+ 
+        /**
+         * Starts the recording process by requesting the access to the microphone.
+         * Then, if granted proceed to initialize the library and store the stream.
+         *
+         * It only stops when the method stopRecording is triggered.
+         */
+        function startRecording() {
+            // Access the Microphone using the navigator.getUserMedia method to obtain a stream
+            navigator.getUserMedia({ audio: true }, function (stream) {
+                // Expose the stream to be accessible globally
+                audio_stream = stream;
+                // Create the MediaStreamSource for the Recorder library
+                var input = audio_context.createMediaStreamSource(stream);
+                console.log('Media stream succesfully created');
+
+                // Initialize the Recorder Library
+                recorder = new Recorder(input);
+                console.log('Recorder initialised');
+
+                // Start recording !
+                recorder && recorder.record();
+                console.log('Recording...');
+
+                // Disable Record button and enable stop button !
+                document.getElementById("start-btn").disabled = true;
+                document.getElementById("stop-btn").disabled = false;
+            }, function (e) {
+                console.error('No live audio input: ' + e);
+            });
+        }
+
+        /**
+         * Stops the recording process. The method expects a callback as first
+         * argument (function) executed once the AudioBlob is generated and it
+         * receives the same Blob as first argument. The second argument is
+         * optional and specifies the format to export the blob either wav or mp3
+         */
+        function stopRecording(callback, AudioFormat) {
+            // Stop the recorder instance
+            recorder && recorder.stop();
+            console.log('Stopped recording.');
+
+            // Stop the getUserMedia Audio Stream !
+            audio_stream.getAudioTracks()[0].stop();
+
+            // Disable Stop button and enable Record button !
+            document.getElementById("start-btn").disabled = false;
+            document.getElementById("stop-btn").disabled = true;
+
+            // Use the Recorder Library to export the recorder Audio as a .wav file
+            // The callback providen in the stop recording method receives the blob
+            if(typeof(callback) == "function"){
+
+                /**
+                 * Export the AudioBLOB using the exportWAV method.
+                 * Note that this method exports too with mp3 if
+                 * you provide the second argument of the function
+                 */
+                recorder && recorder.exportWAV(function (blob) {
+                    callback(blob);
+
+                    // create WAV download link using audio data blob
+                    // createDownloadLink();
+
+                    // Clear the Recorder to start again !
+                    recorder.clear();
+                }, (AudioFormat || "audio/wav"));
+            }
+        }
+
+        // Initialize everything once the window loads
+        window.onload = function(){
+            // Prepare and check if requirements are filled
+            Initialize();
+
+            // Handle on start recording button
+            document.getElementById("start-btn").addEventListener("click", function(){
+                startRecording();
+            }, false);
+
+            // Handle on stop recording button
+            document.getElementById("stop-btn").addEventListener("click", function(){
+                // Use wav format
+                var _AudioFormat = "audio/wav";
+                // You can use mp3 to using the correct mimetype
+                //var AudioFormat = "audio/mpeg";
+
+                stopRecording(function(AudioBLOB){
+                    // Note:
+                    // Use the AudioBLOB for whatever you need, to download
+                    // directly in the browser, to upload to the server, you name it !
+
+                    // In this case we are going to add an Audio item to the list so you
+                    // can play every stored Audio
+                    var url = URL.createObjectURL(AudioBLOB);
+                    var li = document.createElement('li');
+                    var au = document.createElement('audio');
+                    var hf = document.createElement('a');
+
+                    au.controls = true;
+                    au.src = url;
+                    hf.href = url;
+                    // Important:
+                    // Change the format of the file according to the mimetype
+                    // e.g for audio/wav the extension is .wav 
+                    //     for audio/mpeg (mp3) the extension is .mp3
+                    //hf.download = new Date().toISOString() + '.wav';
+                    hf.download = 'comando.wav';
+					hf.innerHTML = hf.download;
+                    li.appendChild(au);
+                    li.appendChild(hf);
+                    recordingslist.appendChild(li);
+                }, _AudioFormat);
+            }, false);
+        };
+    </script>
+
+    <!-- Include the recorder.js library from a local copy -->
+    <script src="recorder.js"></script>
+</body>
+</html>
+
+

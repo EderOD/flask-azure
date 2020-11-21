@@ -1,12 +1,22 @@
-from flask import Flask
-
-from flask import logging, Flask, render_template, request
+import flask
 import os
 import numpy as np
 import librosa
 from joblib import load
-app = Flask(__name__)
+app = flask.Flask(__name__)
 
-@app.route("/")
-def hello():
-    return "Hello, World!2"
+@app.route('/')
+def index():
+    return flask.render_template('index.html')
+
+
+@app.route('/audio', methods=['POST'])
+def audio():
+    with open('audio.wav', 'wb') as f:
+        f.write(flask.request.data)
+    return 'audio gravado'
+
+
+if __name__ == "__main__":
+    app.logger = flask.logging.create_logger(app)
+    app.run(debug=True)
